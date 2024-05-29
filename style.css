@@ -1,0 +1,274 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f4f4;
+}
+
+header {
+  flex-shrink: 0;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1 0 auto;
+  padding-bottom: 100px;
+  padding: 10px 0px; /* Adjusted padding for better mobile view */
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  margin-right: 10px;
+}
+
+.navbar-title {
+  display: block;
+  color: #000; /* Ajusta el color del título */
+}
+
+.navbar-nav .nav-link {
+  color: #fff !important;
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #cce7ff !important;
+}
+
+.results-section {
+  margin-top: 20px;
+}
+
+.card {
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+table th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+table th,
+table td {
+  text-align: center;
+}
+
+.search-section h2,
+.results-section h2 {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.form-check {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 55px;
+  margin-bottom: 10px;
+}
+
+.form-check-input {
+  margin-right: 10px;
+}
+
+.search-section .card-body,
+.search-section .form-group,
+.search-section .btn {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#options {
+  margin-top: 15px;
+}
+
+.results-section .btn-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.results-section .btn {
+  flex: 1;
+  margin: 0 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 576px) {
+  .results-section .btn-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .results-section .btn {
+    width: calc(100% - 20px);
+    margin: 10px 0;
+  }
+
+  .results-section table {
+    width: 100%; /* Ensure table takes full width */
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .results-section table th,
+  .results-section table td {
+    font-size: 0.8rem;
+  }
+
+  .form-check {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Añade espacio entre los elementos en modo columna */
+  }
+
+  .form-check-input {
+    margin-bottom: 10px;
+  }
+
+  .navbar {
+    justify-content: space-between; /* Ensure navbar items are spaced between */
+    position: relative; /* Allows positioning of toggler button */
+  }
+
+  .navbar-brand {
+    justify-content: flex-start; /* Align the logo to the start (left) */
+    width: auto; /* Adjust width */
+  }
+
+  .navbar-toggler {
+    position: absolute;
+    right: 15px; /* Adjust based on desired padding */
+  }
+
+  .navbar-brand span {
+    display: none; /* Hide the title */
+  }
+
+  .navbar-brand img {
+    display: block; /* Ensure the image is a block element */
+    max-width: 100%; /* Ensure the image does not exceed container width */
+    height: auto; /* Maintain image proportion */
+  }
+
+  .results-section h2 {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Custom scrollbar for responsive table */
+@media (max-width: 576px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .table-responsive::-webkit-scrollbar {
+    height: 8px; /* Set the height of the scrollbar */
+  }
+
+  .table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+  }
+
+  .table-responsive::-webkit-scrollbar-thumb {
+    background: #888; /* Thumb color */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  .table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Thumb hover color */
+  }
+}
+
+.text-center p {
+  margin-top: 30px; /* Adjusts the margin top */
+  margin-bottom: 20px;
+  padding-top: 10px; /* Adds padding to the top */
+}
+
+@media print {
+  .print-logo-container img {
+    display: block;
+  }
+  .print-btn,
+  .new-query-btn {
+    display: none;
+  }
+  .results-section table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .results-section th,
+  .results-section td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+}
+
+/* Custom responsive navbar brand adjustments */
+@media (max-width: 576px) {
+  .navbar-brand {
+    justify-content: center; /* Centra el logo */
+    width: 100%;
+  }
+
+  .navbar-toggler {
+    position: absolute;
+    right: 15px; /* Ajusta según el padding deseado */
+  }
+
+  .navbar-brand span {
+    display: none; /* Oculta el título */
+  }
+
+  .navbar-brand img {
+    display: block; /* Asegura que la imagen sea un bloque */
+    margin: 10px; /* Centra la imagen horizontalmente */
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+  }
+}
+
+/* Estilo para el título de la tabla en modo responsive */
+@media (max-width: 576px) {
+  #table-title {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+}
