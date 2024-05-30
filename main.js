@@ -11,7 +11,7 @@ const tableData = {
   ["ÓRGANOS ADMINISTRATIVOS - ASESORAMIENTO"]: [],
   ["ÓRGANOS DE LÍNEA DEL VICERRECTORADO ACADÉMICO"]: [],
   ["ÓRGANOS DE LÍNEA DEL VICERRECTORADO DE INVESTIGACIÓN"]: [],
-  ["ÓRGANOS ESPECIALES"]: []
+  ["ÓRGANOS ESPECIALES"]: [],
 };
 
 // Función para cargar archivos Excel y almacenarlos en tableData
@@ -38,7 +38,7 @@ function showOptions(type) {
 
   if (type === "dependencia") {
     select.innerHTML = `
-      <option value="" disabled selected>Seleccione una dependencia</option>
+      <option value="" disabled selected>Seleccione</option>
       <option value="ALTA DIRECCIÓN">ALTA DIRECCIÓN</option>
       <option value="DIRECCIÓN GENERAL DE ADMINISTRACIÓN">DIRECCIÓN GENERAL DE ADMINISTRACIÓN</option>
       <option value="LIBRO DE RECLAMACIONES">LIBRO DE RECLAMACIONES</option>
@@ -50,7 +50,7 @@ function showOptions(type) {
     `;
   } else if (type === "facultad") {
     select.innerHTML = `
-      <option value="" disabled selected>Seleccione una facultad</option>
+      <option value="" disabled selected>Seleccione</option>
       <option value="FACULTADES - DECANATOS Y MESAS DE PARTE">FACULTADES - DECANATOS Y MESAS DE PARTE</option>
       <option value="DIRECCIONES DE ESCUELA PROFESIONAL">DIRECCIONES DE ESCUELA PROFESIONAL</option>
       <option value="DIRECTORES DE DEPARTAMENTOS ACÁDEMICOS DE LAS FACULTADES">DIRECTORES DE DEPARTAMENTOS ACÁDEMICOS DE LAS FACULTADES</option>
@@ -140,7 +140,7 @@ function searchByCriteria() {
     ...tableData["ÓRGANOS ADMINISTRATIVOS - ASESORAMIENTO"],
     ...tableData["ÓRGANOS DE LÍNEA DEL VICERRECTORADO ACADÉMICO"],
     ...tableData["ÓRGANOS DE LÍNEA DEL VICERRECTORADO DE INVESTIGACIÓN"],
-    ...tableData["ÓRGANOS ESPECIALES"]
+    ...tableData["ÓRGANOS ESPECIALES"],
   ];
 
   console.log("Datos cargados para la búsqueda:", allData);
@@ -200,7 +200,6 @@ function newQuery() {
   document.getElementById("options").style.display = "none";
 }
 
-// Función para imprimir la tabla
 async function printTable() {
   const resultsSection = document.querySelector(".results-section");
   const tableTitle = document.getElementById("table-title").innerText;
@@ -215,16 +214,15 @@ async function printTable() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imprimir Directorio Telefónico</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: "Roboto", sans-serif;
+            margin: 0;
+            padding: 20px;
         }
         .print-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* Reducir espacio inferior */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -232,29 +230,36 @@ async function printTable() {
         .print-header img {
             margin-right: 10px;
         }
+        .print-header h2 {
+            font-size: 16px; /* Tamaño de letra reducido para "Directorio Telefónico UNMSM" */
+        }
         .table-title {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* Reducir espacio inferior */
             font-weight: bold;
-            font-size: 24px;
+            font-size: 16px; /* Tamaño de letra reducido para el título de la tabla */
         }
         .table-wrapper {
             overflow-x: auto;
+            width: 100%;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            font-size: 10px; /* Tamaño de letra reducido */
         }
         table, th, td {
-            border: 1px solid black;
+            border: 0.1px solid black;
         }
         th, td {
-            padding: 8px;
-            text-align: left;
+            padding: 4px; /* Reducir el padding */
+            text-align: center; /* Centrar texto */
+            font-weight: normal; /* Asegurar que el contenido no esté en negrita */
         }
         th {
             background-color: #343a40; /* Color de fondo del encabezado */
             color: #fff; /* Color del texto del encabezado */
+            font-weight: bold; /* Texto en negrita */
         }
         tr:nth-child(even) {
             background-color: #f2f2f2;
@@ -267,13 +272,26 @@ async function printTable() {
                 margin: 0;
             }
             .table-title {
-                margin-bottom: 10px;
+                margin-bottom: 15px; /* Reducir espacio inferior */
+                font-size: 14px; /* Tamaño de letra reducido para el título de la tabla en impresión */
             }
             .table-wrapper {
                 overflow: visible;
             }
             table, th, td {
                 border-color: #000;
+            }
+            table {
+                page-break-inside: avoid;
+                width: 100%;
+            }
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            th, td {
+                font-size: 8px; /* Tamaño de letra reducido para impresión */
+                padding: 2px; /* Reducir el padding en impresión */
             }
         }
     </style>
