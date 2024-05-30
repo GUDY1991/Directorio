@@ -11,9 +11,7 @@ const tableData = {
   ["ÓRGANOS ADMINISTRATIVOS - ASESORAMIENTO"]: [],
   ["ÓRGANOS DE LÍNEA DEL VICERRECTORADO ACADÉMICO"]: [],
   ["ÓRGANOS DE LÍNEA DEL VICERRECTORADO DE INVESTIGACIÓN"]: [],
-  ["ÓRGANOS ESPECIALES"]: [],
-  facultad1: [],
-  facultad2: []
+  ["ÓRGANOS ESPECIALES"]: []
 };
 
 // Función para cargar archivos Excel y almacenarlos en tableData
@@ -43,11 +41,6 @@ function showOptions(type) {
       <option value="" disabled selected>Seleccione una dependencia</option>
       <option value="ALTA DIRECCIÓN">ALTA DIRECCIÓN</option>
       <option value="DIRECCIÓN GENERAL DE ADMINISTRACIÓN">DIRECCIÓN GENERAL DE ADMINISTRACIÓN</option>
-      <option value="DIRECCIONES DE ESCUELA PROFESIONAL">DIRECCIONES DE ESCUELA PROFESIONAL</option>
-      <option value="DIRECTORES DE DEPARTAMENTOS ACÁDEMICOS DE LAS FACULTADES">DIRECTORES DE DEPARTAMENTOS ACÁDEMICOS DE LAS FACULTADES</option>
-      <option value="DIRECTORES DE UNIDADES DE INVESTIGACIÓN">DIRECTORES DE UNIDADES DE INVESTIGACIÓN</option>
-      <option value="DIRECTORES DE UNIDADES DE POSGRADO">DIRECTORES DE UNIDADES DE POSGRADO</option>
-      <option value="FACULTADES - DECANATOS Y MESAS DE PARTE">FACULTADES - DECANATOS Y MESAS DE PARTE</option>
       <option value="LIBRO DE RECLAMACIONES">LIBRO DE RECLAMACIONES</option>
       <option value="ÓRGANOS ADMINISTRATIVOS - APOYO">ÓRGANOS ADMINISTRATIVOS - APOYO</option>
       <option value="ÓRGANOS ADMINISTRATIVOS - ASESORAMIENTO">ÓRGANOS ADMINISTRATIVOS - ASESORAMIENTO</option>
@@ -58,8 +51,11 @@ function showOptions(type) {
   } else if (type === "facultad") {
     select.innerHTML = `
       <option value="" disabled selected>Seleccione una facultad</option>
-      <option value="facultad1">Facultad 1</option>
-      <option value="facultad2">Facultad 2</option>
+      <option value="FACULTADES - DECANATOS Y MESAS DE PARTE">FACULTADES - DECANATOS Y MESAS DE PARTE</option>
+      <option value="DIRECCIONES DE ESCUELA PROFESIONAL">DIRECCIONES DE ESCUELA PROFESIONAL</option>
+      <option value="DIRECTORES DE DEPARTAMENTOS ACÁDEMICOS DE LAS FACULTADES">DIRECTORES DE DEPARTAMENTOS ACÁDEMICOS DE LAS FACULTADES</option>
+      <option value="DIRECTORES DE UNIDADES DE POSGRADO">DIRECTORES DE UNIDADES DE POSGRADO</option>
+      <option value="DIRECTORES DE UNIDADES DE INVESTIGACIÓN">DIRECTORES DE UNIDADES DE INVESTIGACIÓN</option>
     `;
   }
 }
@@ -85,14 +81,14 @@ function showTable() {
 
   data.forEach((item) => {
     const row = table.insertRow();
-    row.insertCell(0).innerText = item["APELLIDOS Y NOMBRES"] || "";
-    row.insertCell(1).innerText = item.CARGO || "";
-    row.insertCell(2).innerText = item.SIGLA || "";
-    row.insertCell(3).innerText = item["RESOL."] || "";
-    row.insertCell(4).innerText = item["TELF. FIJO"] || "";
-    row.insertCell(5).innerText = item["CORREO INSTITUCIONAL"] || "";
-    row.insertCell(6).innerText = item["CORREOS GENERAL"] || "";
-    row.insertCell(7).innerText = item.ANEXO || "";
+    addCell(row, "APELLIDOS Y NOMBRES", item["APELLIDOS Y NOMBRES"]);
+    addCell(row, "CARGO", item.CARGO);
+    addCell(row, "SIGLA", item.SIGLA);
+    addCell(row, "RESOL.", item["RESOL."]);
+    addCell(row, "TELF. FIJO", item["TELF. FIJO"]);
+    addCell(row, "CORREO INSTITUCIONAL", item["CORREO INSTITUCIONAL"]);
+    addCell(row, "CORREOS GENERAL", item["CORREOS GENERAL"]);
+    addCell(row, "ANEXO", item.ANEXO);
   });
 
   // Actualizar el título de la tabla
@@ -100,6 +96,13 @@ function showTable() {
 
   searchSection.style.display = "none";
   resultsSection.style.display = "block";
+}
+
+// Función para agregar celdas con data-label
+function addCell(row, label, text) {
+  const cell = row.insertCell();
+  cell.innerText = text || "";
+  cell.setAttribute("data-label", label);
 }
 
 // Función para buscar por criterios
@@ -137,9 +140,7 @@ function searchByCriteria() {
     ...tableData["ÓRGANOS ADMINISTRATIVOS - ASESORAMIENTO"],
     ...tableData["ÓRGANOS DE LÍNEA DEL VICERRECTORADO ACADÉMICO"],
     ...tableData["ÓRGANOS DE LÍNEA DEL VICERRECTORADO DE INVESTIGACIÓN"],
-    ...tableData["ÓRGANOS ESPECIALES"],
-    ...tableData.facultad1,
-    ...tableData.facultad2
+    ...tableData["ÓRGANOS ESPECIALES"]
   ];
 
   console.log("Datos cargados para la búsqueda:", allData);
@@ -209,64 +210,93 @@ async function printTable() {
 
   // Crear contenido HTML para la nueva ventana
   const printContent = `
-    <html>
-      <head>
-        <title>Imprimir Directorio Telefónico</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <style>
-          body {
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprimir Directorio Telefónico</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
             font-family: "Roboto", sans-serif;
-          }
-          .print-header {
+        }
+        .print-header {
             text-align: center;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-          }
-          .print-header img {
+        }
+        .print-header img {
             margin-right: 10px;
-          }
-          .table-title {
+        }
+        .table-title {
             text-align: center;
             margin-bottom: 20px;
             font-weight: bold;
             font-size: 24px;
-          }
-          table {
+        }
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        table {
             width: 100%;
             border-collapse: collapse;
-          }
-          table, th, td {
+        }
+        table, th, td {
             border: 1px solid black;
-          }
-          th, td {
+        }
+        th, td {
             padding: 8px;
             text-align: left;
-          }
-          th {
+        }
+        th {
+            background-color: #343a40; /* Color de fondo del encabezado */
+            color: #fff; /* Color del texto del encabezado */
+        }
+        tr:nth-child(even) {
             background-color: #f2f2f2;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="print-header">
-          <img src="logo.png" alt="Logo" width="50">
-          <h2>Directorio Telefónico UNMSM</h2>
-        </div>
-        <div class="table-title">${tableTitle}</div>
+        }
+        @media print {
+            .print-header img {
+                display: block;
+            }
+            .print-header h2 {
+                margin: 0;
+            }
+            .table-title {
+                margin-bottom: 10px;
+            }
+            .table-wrapper {
+                overflow: visible;
+            }
+            table, th, td {
+                border-color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-header">
+        <img src="logo.png" alt="Logo" width="50">
+        <h2>Directorio Telefónico UNMSM</h2>
+    </div>
+    <div class="table-title">${tableTitle}</div>
+    <div class="table-wrapper">
         <table class="table table-bordered">
-          ${resultsSection.querySelector("table").innerHTML}
+            ${resultsSection.querySelector("table").innerHTML}
         </table>
-        <script>
-          window.onload = function() {
+    </div>
+    <script>
+        window.onload = function() {
             window.print();
             window.close();
-          }
-        </script>
-      </body>
-    </html>
+        }
+    </script>
+</body>
+</html>
   `;
 
   // Escribir el contenido HTML en la nueva ventana
@@ -318,5 +348,3 @@ loadFile(
   "ÓRGANOS DE LÍNEA DEL VICERRECTORADO DE INVESTIGACIÓN"
 );
 loadFile("data/D_ÓRGANOS ESPECIALES.xlsx", "ÓRGANOS ESPECIALES");
-loadFile("data/facultad1.xlsx", "facultad1");
-loadFile("data/facultad2.xlsx", "facultad2");

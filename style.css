@@ -23,7 +23,7 @@ footer {
 .content {
   flex: 1 0 auto;
   padding-bottom: 100px;
-  padding: 10px 0px; /* Adjusted padding for better mobile view */
+  padding: 10px 0px;
 }
 
 .navbar {
@@ -79,6 +79,8 @@ table th {
 table th,
 table td {
   text-align: center;
+  font-size: 0.78rem; /* Reduce el tamaño de la fuente */
+  border: 30px solid black; /* Añade borde negro a todas las celdas */
 }
 
 .search-section h2,
@@ -122,8 +124,15 @@ table td {
   margin: 0 10px;
 }
 
-/* Responsive styles */
-@media (max-width: 576px) {
+.table-wrapper {
+  width: 100%;
+}
+
+.table-wrapper table {
+  width: 100%;
+}
+
+@media (max-width: 1025px) {
   .results-section .btn-container {
     flex-direction: column;
     align-items: center;
@@ -135,22 +144,22 @@ table td {
   }
 
   .results-section table {
-    width: 100%; /* Ensure table takes full width */
+    width: 100%;
   }
 
   .table-responsive {
-    overflow-x: auto;
+    overflow-x: hidden;
   }
 
   .results-section table th,
   .results-section table td {
-    font-size: 0.8rem;
+    font-size: 0.8rem; /* Reduce aún más el tamaño de la fuente en pantallas pequeñas */
   }
 
   .form-check {
     flex-direction: column;
     align-items: center;
-    gap: 10px; /* Añade espacio entre los elementos en modo columna */
+    gap: 10px;
   }
 
   .form-check-input {
@@ -158,64 +167,77 @@ table td {
   }
 
   .navbar {
-    justify-content: space-between; /* Ensure navbar items are spaced between */
-    position: relative; /* Allows positioning of toggler button */
+    justify-content: space-between;
+    position: relative;
   }
 
   .navbar-brand {
-    justify-content: flex-start; /* Align the logo to the start (left) */
-    width: auto; /* Adjust width */
+    justify-content: flex-start;
+    width: auto;
   }
 
   .navbar-toggler {
     position: absolute;
-    right: 15px; /* Adjust based on desired padding */
+    right: 15px;
   }
 
   .navbar-brand span {
-    display: none; /* Hide the title */
+    display: none;
   }
 
   .navbar-brand img {
-    display: block; /* Ensure the image is a block element */
-    max-width: 100%; /* Ensure the image does not exceed container width */
-    height: auto; /* Maintain image proportion */
+    display: block;
+    max-width: 100%;
+    height: auto;
   }
 
   .results-section h2 {
     width: 100%;
     text-align: center;
-  }
-}
-
-/* Custom scrollbar for responsive table */
-@media (max-width: 576px) {
-  .table-responsive {
-    overflow-x: auto;
+    font-size: 1.25rem; /* Reduce el tamaño del título de la tabla en pantallas pequeñas */
   }
 
-  .table-responsive::-webkit-scrollbar {
-    height: 8px; /* Set the height of the scrollbar */
+  #results-table {
+    display: block;
   }
 
-  .table-responsive::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Track color */
+  #results-table thead {
+    display: none;
   }
 
-  .table-responsive::-webkit-scrollbar-thumb {
-    background: #888; /* Thumb color */
-    border-radius: 10px; /* Rounded corners */
+  #results-table tbody,
+  #results-table tr,
+  #results-table td {
+    display: block;
+    width: 100%;
   }
 
-  .table-responsive::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Thumb hover color */
+  #results-table tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 0.75rem;
+    padding: 8px; /* Reduce el padding vertical */
+  }
+
+  #results-table td {
+    text-align: left;
+    padding: 30px 11px; /* Reduce el tamaño vertical de las celdas */
+    position: relative;
+  }
+
+  #results-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    position: absolute;
+    left: 10px;
+    top: 10px;
   }
 }
 
 .text-center p {
-  margin-top: 30px; /* Adjusts the margin top */
+  margin-top: 30px;
   margin-bottom: 20px;
-  padding-top: 10px; /* Adds padding to the top */
+  padding-top: 10px;
 }
 
 @media print {
@@ -237,38 +259,8 @@ table td {
   }
 }
 
-/* Custom responsive navbar brand adjustments */
-@media (max-width: 576px) {
-  .navbar-brand {
-    justify-content: center; /* Centra el logo */
-    width: 100%;
-  }
-
-  .navbar-toggler {
-    position: absolute;
-    right: 15px; /* Ajusta según el padding deseado */
-  }
-
-  .navbar-brand span {
-    display: none; /* Oculta el título */
-  }
-
-  .navbar-brand img {
-    display: block; /* Asegura que la imagen sea un bloque */
-    margin: 10px; /* Centra la imagen horizontalmente */
-    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
-    height: auto; /* Mantiene la proporción de la imagen */
-  }
-}
-
-/* Estilo para el título de la tabla en modo responsive */
-@media (max-width: 576px) {
-  #table-title {
-    display: block;
-    width: 100%;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+@media (min-width: 1024px) {
+  .table-responsive {
+    overflow-x: hidden;
   }
 }
