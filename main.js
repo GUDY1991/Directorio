@@ -298,8 +298,8 @@ async function printTable() {
 </head>
 <body>
     <div class="print-header">
-        <img src="logo.png" alt="Logo" width="50">
-        <h2>Directorio Telefónico UNMSM</h2>
+        <img src="/image/logo.png" alt="Logo" width="50">
+        <h2>Directorio Telefónico UNAC</h2>
     </div>
     <div class="table-title">${tableTitle}</div>
     <div class="table-wrapper">
