@@ -231,7 +231,7 @@ async function printTable() {
             margin-right: 10px;
         }
         .print-header h2 {
-            font-size: 16px; /* Tamaño de letra reducido para "Directorio Telefónico UNMSM" */
+            font-size: 16px; /* Tamaño de letra reducido para "Directorio Telefónico UNAC" */
         }
         .table-title {
             text-align: center;
